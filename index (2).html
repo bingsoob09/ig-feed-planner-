@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aqua+ Feed Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+/* ---------- tokens: light ---------- */
+:root{
+  --ground:#F2F6F7;
+  --surface:#FFFFFF;
+  --surface-2:#EDF3F5;
+  --ink:#0E2430;
+  --ink-soft:#5B7683;
+  --ink-faint:#93A9B3;
+  --line:#DCE7EA;
+  --line-strong:#C3D5DA;
+  --accent:#0E8C9B;
+  --accent-ink:#FFFFFF;
+  --accent-wash:#DCEFF2;
+  --shadow:0 1px 2px rgba(14,36,48,.06), 0 8px 24px rgba(14,36,48,.07);
+  --shadow-lift:0 8px 16px rgba(14,36,48,.12), 0 24px 48px rgba(14,36,48,.18);
+
+  --p-lifestyle:#E0805F;
+  --p-product:#4F7FE0;
+  --p-educational:#7A6BD1;
+  --p-community:#2FA37C;
+  --p-ugc:#D4649B;
+  --p-none:#93A9B3;
+
+  --ok:#2FA37C;
+  --warn:#D9A33B;
+
+  --r-sm:6px;
+  --r-md:10px;
+  --r-lg:16px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0A171E;
+    --surface:#11262F;
+    --surface-2:#173340;
+    --ink:#E7F2F5;
+    --ink-soft:#8FACB7;
+    --ink-faint:#63838F;
+    --line:#1E3B47;
+    --line-strong:#2A4E5C;
+    --accent:#45C6D5;
+    --accent-ink:#04222A;
+    --accent-wash:#12323C;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    --shadow-lift:0 8px 16px rgba(0,0,0,.5), 0 24px 48px rgba(0,0,0,.55);
+
+    --p-lifestyle:#EE9B7B;
+    --p-product:#7BA2EE;
+    --p-educational:#9A8CE4;
+    --p-community:#4FBE97;
+    --p-ugc:#E486B4;
+    --p-none:#63838F;
+
+    --ok:#4FBE97;
+    --warn:#E0B75A;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0A171E;
+  --surface:#11262F;
+  --surface-2:#173340;
+  --ink:#E7F2F5;
+  --ink-soft:#8FACB7;
+  --ink-faint:#63838F;
+  --line:#1E3B47;
+  --line-strong:#2A4E5C;
+  --accent:#45C6D5;
+  --accent-ink:#04222A;
+  --accent-wash:#12323C;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  --shadow-lift:0 8px 16px rgba(0,0,0,.5), 0 24px 48px rgba(0,0,0,.55);
+  --p-lifestyle:#EE9B7B;
+  --p-product:#7BA2EE;
+  --p-educational:#9A8CE4;
+  --p-community:#4FBE97;
+  --p-ugc:#E486B4;
+  --p-none:#63838F;
+  --ok:#4FBE97;
+  --warn:#E0B75A;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size:14px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  padding-block:24px;
+  padding-left:16px;
+  padding-right:16px;
+}
+img{max-width:100%}
+[hidden]{display:none !important}
+button{font:inherit;color:inherit;cursor:pointer}
+input,textarea,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+
+/* ---------- shell ---------- */
+.wrap{max-width:1080px;margin:0 auto}
+
+.masthead{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;margin-bottom:20px;
+}
+.masthead h1{
+  font-family:"Instrument Serif", Georgia, "Times New Roman", serif;
+  font-weight:400;font-size:34px;line-height:1.05;margin:0;letter-spacing:-.01em;
+  text-wrap:balance;
+}
+.masthead h1 em{font-style:italic;color:var(--accent)}
+.source{
+  font-size:11px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-faint);display:flex;align-items:center;gap:7px;margin-top:6px;
+}
+.source .dot{width:6px;height:6px;border-radius:50%;background:var(--ok);flex:none}
+.mast-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.btn{
+  border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);
+  border-radius:var(--r-sm);padding:7px 12px;font-size:13px;font-weight:500;
+  transition:background .12s ease, border-color .12s ease;
+}
+.btn:hover{background:var(--surface-2)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{filter:brightness(1.07);background:var(--accent)}
+.btn-sm{padding:5px 9px;font-size:12px}
+.btn-ghost{border-color:transparent;background:transparent;color:var(--ink-soft)}
+.btn-ghost:hover{background:var(--surface-2);color:var(--ink)}
+
+/* ---------- two-pane layout ---------- */
+.stage{display:grid;grid-template-columns:minmax(0,392px) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:860px){.stage{grid-template-columns:minmax(0,1fr);gap:24px}}
+
+/* ---------- phone / profile ---------- */
+.phone{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+  box-shadow:var(--shadow);overflow:hidden;position:sticky;top:16px;
+}
+@media (max-width:860px){.phone{position:static}}
+
+.profile{padding:14px 16px 0}
+.pf-user{font-size:13.5px;font-weight:600;letter-spacing:-.01em;padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.profile .editable{cursor:pointer;border-radius:4px}
+.profile .editable:hover{background:var(--surface-2);box-shadow:0 0 0 4px var(--surface-2)}
+.profile-top{display:flex;align-items:center;gap:20px}
+.avatar{
+  width:74px;height:74px;border-radius:50%;flex:none;overflow:hidden;
+  background:var(--accent-wash);border:1px solid var(--line);
+  display:grid;place-items:center;position:relative;
+}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.avatar span{
+  font-family:"Instrument Serif",Georgia,serif;font-size:30px;color:var(--accent);
+}
+.counts{display:flex;gap:22px;flex:1}
+.count{text-align:center;min-width:52px}
+.count b{display:block;font-size:16px;font-weight:600;font-variant-numeric:tabular-nums}
+.count span{font-size:12px;color:var(--ink-soft)}
+
+.bio{padding:12px 0 14px}
+.bio .name{font-weight:600;font-size:13.5px}
+.bio .text{font-size:13px;white-space:pre-wrap;color:var(--ink);margin-top:1px}
+.bio .link{font-size:13px;color:var(--accent);font-weight:500;text-decoration:none;word-break:break-all}
+.bio .link:hover{text-decoration:underline}
+
+.tabs{display:flex;border-top:1px solid var(--line)}
+.tab{
+  flex:1;background:none;border:0;border-top:2px solid transparent;margin-top:-1px;
+  padding:11px 0;display:grid;place-items:center;color:var(--ink-faint);
+}
+.tab[aria-selected="true"]{color:var(--ink);border-top-color:var(--ink)}
+.tab svg{width:17px;height:17px;display:block}
+
+/* ---------- grid ---------- */
+.grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);
+  border-top:1px solid var(--line);touch-action:pan-y;
+}
+.cell{
+  position:relative;aspect-ratio:1/1;max-width:100%;background:var(--surface-2);
+  overflow:hidden;border:0;padding:0;display:block;cursor:grab;
+  transition:transform .14s ease, opacity .14s ease;
+}
+.cell:active{cursor:grabbing}
+.cell img{width:100%;height:100%;object-fit:cover;display:block}
+.cell.is-dragging{opacity:.28}
+.cell.is-selected::after{
+  content:"";position:absolute;inset:0;border:3px solid var(--accent);pointer-events:none;
+}
+.ph{
+  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:8px;gap:4px;text-align:left;
+}
+.ph-title{
+  font-size:10.5px;line-height:1.28;font-weight:600;color:#fff;
+  text-shadow:0 1px 3px rgba(0,0,0,.55);
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+}
+.cell .badge{
+  position:absolute;top:6px;right:6px;width:17px;height:17px;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.5));color:#fff;
+}
+.cell .pin{
+  position:absolute;top:6px;left:6px;width:15px;height:15px;color:#fff;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.5));
+}
+.cell .stage-bar{
+  position:absolute;left:0;right:0;bottom:0;height:3px;display:flex;gap:1px;
+}
+.cell .stage-bar i{flex:1;background:rgba(255,255,255,.35)}
+.cell .stage-bar i.on{background:#fff}
+.cell.posted .stage-bar i{background:var(--ok)}
+.cell .scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,0) 55%)}
+.cell.empty-slot{
+  background:repeating-linear-gradient(135deg,var(--surface-2) 0 7px,transparent 7px 14px);
+  cursor:default;
+}
+
+/* strategy view */
+.grid.strategy .cell img{opacity:.14}
+.grid.strategy .cell .scrim{background:none}
+.grid.strategy .pill-name{
+  position:absolute;inset:0;display:grid;place-items:center;padding:8px;
+  font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  text-align:center;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.4);opacity:.92;
+}
+
+.drag-ghost{
+  position:fixed;z-index:999;pointer-events:none;border-radius:var(--r-sm);
+  box-shadow:var(--shadow-lift);overflow:hidden;opacity:.94;
+}
+.drag-ghost img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- rail ---------- */
+.rail{display:flex;flex-direction:column;gap:16px;min-width:0}
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);
+  box-shadow:var(--shadow);
+}
+.card-h{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px 14px;border-bottom:1px solid var(--line);
+}
+.card-h h2{
+  margin:0;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.card-b{padding:14px}
+
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{
+  border:1px solid var(--line-strong);background:transparent;border-radius:999px;
+  padding:5px 11px;font-size:12.5px;font-weight:500;color:var(--ink-soft);
+  display:inline-flex;align-items:center;gap:6px;
+}
+.chip:hover{border-color:var(--accent);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip b{font-variant-numeric:tabular-nums;font-weight:600;opacity:.75}
+.chip[aria-pressed="true"] b{opacity:.85}
+
+/* pillar meter */
+.meter{display:flex;height:9px;border-radius:999px;overflow:hidden;background:var(--surface-2)}
+.meter i{display:block;transition:flex-grow .25s ease}
+.legend{display:flex;flex-direction:column;gap:7px;margin-top:12px}
+.legend-row{display:flex;align-items:center;gap:9px;font-size:13px}
+.legend-row .sw{width:10px;height:10px;border-radius:3px;flex:none}
+.legend-row .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.legend-row .vl{font-variant-numeric:tabular-nums;color:var(--ink-soft);font-size:12.5px}
+
+/* detail form */
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field label{
+  font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);
+}
+.field input[type=text],.field input[type=url],.field input[type=date],.field textarea,.field select{
+  width:100%;background:var(--ground);border:1px solid var(--line-strong);
+  border-radius:var(--r-sm);padding:8px 10px;font-size:13px;
+}
+.field textarea{resize:vertical;min-height:70px;line-height:1.45}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.imgrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:7px}
+@media (max-width:420px){.row2{grid-template-columns:1fr}}
+
+.stages{display:flex;gap:6px;flex-wrap:wrap}
+.stagebtn{
+  flex:1 1 auto;min-width:72px;border:1px solid var(--line-strong);background:transparent;
+  border-radius:var(--r-sm);padding:7px 4px;font-size:12px;font-weight:500;color:var(--ink-soft);
+  display:flex;align-items:center;justify-content:center;gap:5px;
+}
+.stagebtn[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent);color:var(--ink)}
+.stagebtn .tick{width:12px;height:12px;flex:none;opacity:0}
+.stagebtn[aria-pressed="true"] .tick{opacity:1;color:var(--accent)}
+
+.detail-empty{
+  padding:26px 14px;text-align:center;color:var(--ink-faint);font-size:13px;
+}
+.detail-empty svg{width:26px;height:26px;margin-bottom:8px;opacity:.5}
+
+.detail-foot{display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-top:4px}
+.danger{color:#C0524A;border-color:transparent;background:transparent}
+.danger:hover{background:rgba(192,82,74,.1)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .danger{color:#F08A80}}
+:root[data-theme="dark"] .danger{color:#F08A80}
+
+.note{font-size:12px;color:var(--ink-soft);line-height:1.5}
+.note code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;
+  background:var(--surface-2);padding:1px 5px;border-radius:4px;
+}
+.seed-banner{
+  display:flex;gap:9px;align-items:flex-start;background:var(--accent-wash);
+  border:1px solid var(--line);border-radius:var(--r-md);padding:11px 13px;
+  font-size:12.5px;color:var(--ink);margin-bottom:16px;line-height:1.45;
+}
+.seed-banner svg{width:15px;height:15px;flex:none;margin-top:2px;color:var(--accent)}
+.seed-banner button{margin-left:auto;flex:none}
+
+textarea.json{
+  width:100%;min-height:120px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:11.5px;line-height:1.45;background:var(--ground);
+  border:1px solid var(--line-strong);border-radius:var(--r-sm);padding:9px;resize:vertical;
+}
+.toast{
+  position:fixed;left:50%;bottom:22px;transform:translateX(-50%);
+  background:var(--ink);color:var(--ground);padding:9px 16px;border-radius:999px;
+  font-size:13px;font-weight:500;box-shadow:var(--shadow-lift);z-index:1000;
+  padding-bottom:calc(9px + env(safe-area-inset-bottom,0px));
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div>
+      <h1>Aqua+ <em>feed</em> planner</h1>
+      <div class="source"><span class="dot" aria-hidden="true"></span><span id="srcLine">Content · aqua+ content calendar</span></div>
+    </div>
+    <div class="mast-actions">
+      <button class="btn" id="addBtn">+ Add post</button>
+      <button class="btn" id="profileBtn">Edit profile</button>
+      <button class="btn" id="dataBtn">Sync data</button>
+      <button class="btn btn-ghost" id="themeBtn" title="Switch theme" aria-label="Switch theme">◐</button>
+    </div>
+  </header>
+
+  <div class="seed-banner" id="seedBanner">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+    <div><strong>These 12 posts now live in your Notion <code>Content</code> database</strong> — edit them there and press <strong>Sync data</strong>, or edit them here. The photos are placeholders; swap each tile’s Image URL for your real Canva export.</div>
+    <button class="btn btn-sm btn-ghost" id="dismissSeed">Got it</button>
+  </div>
+
+  <div class="stage">
+
+    <!-- ============ phone ============ -->
+    <section class="phone" aria-label="Instagram grid preview">
+      <div class="profile">
+        <div class="pf-user">@<span id="pUser">aquaplus</span></div>
+        <div class="profile-top">
+          <div class="avatar" id="avatar"><span id="avatarLetter">a</span></div>
+          <div class="counts">
+            <div class="count"><b id="cPosts">0</b><span>posts</span></div>
+            <div class="count"><b id="cFollowers">2,418</b><span>followers</span></div>
+            <div class="count"><b id="cFollowing">312</b><span>following</span></div>
+          </div>
+        </div>
+        <div class="bio">
+          <div class="name" id="pName">Aqua+</div>
+          <div class="text" id="pBio">Tumblers that keep up with you ✦ MagSafe-ready
+Kiosks nationwide</div>
+          <a class="link" id="pLink" href="#" target="_blank" rel="noopener">aquaplus.ph/shop</a>
+        </div>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" aria-selected="true" data-view="grid" aria-label="Grid view">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
+        </button>
+        <button class="tab" role="tab" aria-selected="false" data-view="strategy" aria-label="Strategy view">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 20h18"/><rect x="5" y="11" width="3.4" height="9"/><rect x="10.3" y="6" width="3.4" height="14"/><rect x="15.6" y="14" width="3.4" height="6"/></svg>
+        </button>
+      </div>
+
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <!-- ============ rail ============ -->
+    <div class="rail">
+
+      <section class="card">
+        <div class="card-h"><h2>Filter</h2><span class="note" id="showing"></span></div>
+        <div class="card-b"><div class="chips" id="filters"></div></div>
+      </section>
+
+      <section class="card">
+        <div class="card-h"><h2>Pillar balance</h2><span class="note" id="pillarTotal"></span></div>
+        <div class="card-b">
+          <div class="meter" id="meter"></div>
+          <div class="legend" id="legend"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-h">
+          <h2 id="detailTitle">Post</h2>
+          <button class="btn btn-sm btn-ghost" id="closeDetail" hidden>Close</button>
+        </div>
+        <div id="detailWrap">
+          <div class="detail-empty" id="detailEmpty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 15l5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="8.5" r="1.4"/></svg>
+            <div>Select a tile to edit its caption, image and stage.<br>Drag any tile to reorder the feed.</div>
+          </div>
+          <div class="card-b" id="detailForm" hidden></div>
+        </div>
+      </section>
+
+      <section class="card" id="profileCard" hidden>
+        <div class="card-h"><h2>Profile</h2><button class="btn btn-sm btn-ghost" id="closeProfile">Close</button></div>
+        <div class="card-b">
+          <div class="row2">
+            <div class="field"><label for="pf-name">Display name</label><input id="pf-name" type="text"></div>
+            <div class="field"><label for="pf-user">Username</label><input id="pf-user" type="text"></div>
+          </div>
+          <div class="field"><label for="pf-bio">Bio</label><textarea id="pf-bio"></textarea></div>
+          <div class="field"><label for="pf-link">Link</label><input id="pf-link" type="text" placeholder="aquaplus.ph/shop"></div>
+          <div class="field"><label for="pf-avatar">Profile photo URL</label><input id="pf-avatar" type="url" placeholder="https://… a square image"></div>
+          <div class="row2">
+            <div class="field"><label for="pf-followers">Followers</label><input id="pf-followers" type="text"></div>
+            <div class="field"><label for="pf-following">Following</label><input id="pf-following" type="text"></div>
+          </div>
+          <p class="note" style="margin:0">The post count isn’t editable — it counts the tiles marked Posted, so it moves as you work.</p>
+        </div>
+      </section>
+
+      <section class="card" id="dataCard" hidden>
+        <div class="card-h"><h2>Sync with Notion</h2><button class="btn btn-sm btn-ghost" id="closeData">Close</button></div>
+        <div class="card-b">
+          <p class="note" style="margin:0 0 10px">
+            Ask Claude to <em>“sync my feed planner”</em> — it reads your <code>Content</code> database and hands back a JSON block. Paste it below and press Load. Press Copy to send your grid order, pins and captions back the other way.
+          </p>
+          <textarea class="json" id="jsonBox" spellcheck="false" aria-label="Post data as JSON"></textarea>
+          <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+            <button class="btn btn-primary btn-sm" id="loadJson">Load into grid</button>
+            <button class="btn btn-sm" id="copyJson">Copy current grid</button>
+            <button class="btn btn-sm btn-ghost danger" id="resetAll">Reset to examples</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------------- pillars (from the Content Pillar database) ---------------- */
+var PILLARS = [
+  {name:"Lifestyle",         v:"--p-lifestyle"},
+  {name:"Product Awareness", v:"--p-product"},
+  {name:"Educational",       v:"--p-educational"},
+  {name:"Community",         v:"--p-community"},
+  {name:"UGC",               v:"--p-ugc"}
+];
+var FORMATS = ["Photo","Carousel","Reel","IG Story"];
+
+function pillarColor(name){
+  var p = PILLARS.find(function(x){return x.name===name;});
+  return "var(" + (p ? p.v : "--p-none") + ")";
+}
+
+/* ---------------- seed: built from her real Content Pillar "Samples" ---------------- */
+function seed(){
+  var s=[
+    ["A day with my Aqua+","Morning commute to last call — one bottle, twelve hours.","Lifestyle","Reel",1,1,1,1],
+    ["Which Aqua+ size matches your lifestyle?","350ml, 750ml or 1L — a quick guide to picking yours.","Product Awareness","Carousel",1,1,1,1],
+    ["What's inside my bag — school edition","The five things that never leave the front pocket.","Lifestyle","Carousel",1,1,1,1],
+    ["Getting to know MagSafe","Snap it to the case, keep both hands free.","Product Awareness","Reel",1,1,1,0],
+    ["A closer look at Aqua+ colours","Sea Glass, Overcast, Midnight — swatched in daylight.","Product Awareness","Carousel",1,0,1,0],
+    ["Your Aqua+ photos this month","Five reposts from the tag. Keep them coming.","UGC","Photo",1,1,1,0],
+    ["Why stainless keeps ice for 24 hours","The vacuum layer, explained without the physics lecture.","Educational","Carousel",1,0,1,0],
+    ["Things I always bring when I go out","Tumbler, tote, transit card, and one snack.","Lifestyle","Photo",1,0,0,0],
+    ["Where to find Aqua+ kiosks","Every branch on one map — save this post.","Product Awareness","Photo",1,0,0,0],
+    ["How to clean your tumbler properly","Weekly rinse, monthly deep clean. Two minutes each.","Educational","Reel",0,0,0,0],
+    ["Tag a friend who needs this","The one who always forgets their water.","Community","Photo",0,0,0,0],
+    ["Customer unboxing","Straight from the tag — no script, no edit.","UGC","Reel",0,0,0,0]
+  ];
+  var NURL=["https://app.notion.com/p/3dfaae7820bf81f9bb2be071723659d7","https://app.notion.com/p/3dfaae7820bf817297c7d121eb0e0b73","https://app.notion.com/p/3dfaae7820bf81f596c7ed9484a7e514","https://app.notion.com/p/3dfaae7820bf819e89c3fa76d77dafb6","https://app.notion.com/p/3dfaae7820bf8104a1ebf150c5df8576","https://app.notion.com/p/3dfaae7820bf814f9bfcea579d0a1db9","https://app.notion.com/p/3dfaae7820bf8106b480fb98e3c24807","https://app.notion.com/p/3dfaae7820bf8138a09bca45ac4a29f0","https://app.notion.com/p/3dfaae7820bf819dad55d8cbaa348afe","https://app.notion.com/p/3dfaae7820bf81c5bb9ae2e895723555","https://app.notion.com/p/3dfaae7820bf813a9ab2ef54f8ba8e47","https://app.notion.com/p/3dfaae7820bf8190bd69e686ea74c37b"];
+  var IMG=[];for(var k=1;k<=12;k++){IMG.push("https://picsum.photos/seed/aquaplus"+(k<10?"0":"")+k+"/900/900");}
+  var today=new Date();
+  return s.map(function(r,i){
+    var d=new Date(today); d.setDate(d.getDate() - 6 + i*2);
+    return {
+      id:"seed-"+i, title:r[0], caption:r[1], pillar:r[2], format:r[3],
+      writing:!!r[4], filming:!!r[5], editing:!!r[6], posting:!!r[7],
+      image:IMG[i]||"", pinned:false, date:d.toISOString().slice(0,10), notionUrl:NURL[i]||""
+    };
+  });
+}
+
+var DEFAULT_PROFILE={
+  name:"Aqua+", username:"aquaplus",
+  bio:"Tumblers that keep up with you ✦ MagSafe-ready\nKiosks nationwide",
+  link:"aquaplus.ph/shop", avatar:"", followers:"2,418", following:"312"
+};
+
+/* ---------------- state + storage ---------------- */
+var KEY="aquaplus.feedplanner.v1";
+var state={posts:seed(), profile:Object.assign({},DEFAULT_PROFILE), seedDismissed:false, isSeed:true};
+var view="grid", filter="all", selectedId=null;
+
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(state)); return true; }catch(e){ return false; }
+}
+function load(){
+  try{
+    var raw=localStorage.getItem(KEY);
+    if(!raw) return;
+    var o=JSON.parse(raw);
+    if(o && Array.isArray(o.posts)){
+      state.posts=o.posts;
+      state.profile=Object.assign({},DEFAULT_PROFILE,o.profile||{});
+      state.seedDismissed=!!o.seedDismissed;
+      state.isSeed = o.isSeed!==false;
+    }
+  }catch(e){}
+}
+
+/* ---------------- derived ---------------- */
+function statusOf(p){
+  if(p.posting) return "posted";
+  if(p.editing) return "scheduled";
+  return "draft";
+}
+function stageCount(p){
+  return (p.writing?1:0)+(p.filming?1:0)+(p.editing?1:0)+(p.posting?1:0);
+}
+function visible(){
+  return state.posts.filter(function(p){
+    if(filter==="all") return true;
+    if(filter==="pinned") return !!p.pinned;
+    return statusOf(p)===filter;
+  });
+}
+function ordered(list){
+  var pin=list.filter(function(p){return p.pinned;});
+  var rest=list.filter(function(p){return !p.pinned;});
+  return pin.concat(rest);
+}
+function esc(s){
+  return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+  });
+}
+function byId(id){ return state.posts.find(function(p){return p.id===id;}); }
+
+/* ---------------- icons ---------------- */
+var ICON={
+  Reel:'<svg class="badge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 8h18M9 3l3 5M15 3l3 5"/><path d="M11 12.5v4l3.5-2z" fill="currentColor" stroke="none"/></svg>',
+  Carousel:'<svg class="badge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="3" width="13" height="13" rx="2"/><path d="M16 20H6a2 2 0 0 1-2-2V8"/></svg>',
+  "IG Story":'<svg class="badge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" stroke-dasharray="3.2 2.4"/></svg>',
+  Photo:""
+};
+var PINICON='<svg class="pin" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2l1.5 5.5L20 10l-4 1.5L20 22l-8-6-8 6 4-10.5L4 10l4.5-2.5L10 2l2 3z"/></svg>';
+
+/* ---------------- render: grid ---------------- */
+var gridEl=document.getElementById("grid");
+
+function tileHTML(p){
+  var col=pillarColor(p.pillar);
+  var st=statusOf(p);
+  var bg="linear-gradient(150deg,"+col+" 0%, color-mix(in srgb,"+col+" 52%, #06181F) 100%)";
+  var bars="";
+  for(var i=0;i<4;i++){ bars+='<i class="'+(i<stageCount(p)?"on":"")+'"></i>'; }
+  return '<button class="cell '+(st==="posted"?"posted ":"")+(selectedId===p.id?"is-selected":"")+'" '+
+      'style="background:'+bg+'" data-id="'+esc(p.id)+'" type="button" '+
+      'aria-label="'+esc(p.title||"Untitled")+' \u2014 '+st+'">'+
+      (p.image?'<img src="'+esc(p.image)+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">':"")+
+      '<div class="scrim"></div>'+
+      '<div class="ph"><div class="ph-title">'+esc(p.title||"Untitled")+'</div></div>'+
+      '<div class="pill-name"'+(view==="strategy"?"":" hidden")+' style="background:'+col+'">'+esc(p.pillar||"No pillar")+'</div>'+
+      (ICON[p.format]||"")+
+      (p.pinned?PINICON:"")+
+      '<div class="stage-bar">'+bars+'</div>'+
+    '</button>';
+}
+
+function renderGrid(){
+  var list=ordered(visible());
+  var html=list.map(tileHTML).join("");
+  var pad=(3 - (list.length % 3)) % 3;
+  for(var i=0;i<pad;i++){ html+='<div class="cell empty-slot" aria-hidden="true"></div>'; }
+  if(!list.length){
+    html='<div class="cell empty-slot" aria-hidden="true"></div><div class="cell empty-slot" aria-hidden="true"></div><div class="cell empty-slot" aria-hidden="true"></div>';
+  }
+  gridEl.innerHTML=html;
+  gridEl.classList.toggle("strategy", view==="strategy");
+  document.getElementById("cPosts").textContent=state.posts.filter(function(p){return p.posting;}).length;
+  document.getElementById("showing").textContent=list.length+" of "+state.posts.length+" shown";
+}
+
+/* ---------------- render: filters + meter ---------------- */
+var FILTERS=[["all","All"],["draft","Draft"],["scheduled","Scheduled"],["posted","Posted"],["pinned","Pinned"]];
+function renderFilters(){
+  document.getElementById("filters").innerHTML=FILTERS.map(function(f){
+    var n = f[0]==="all" ? state.posts.length
+          : f[0]==="pinned" ? state.posts.filter(function(p){return p.pinned;}).length
+          : state.posts.filter(function(p){return statusOf(p)===f[0];}).length;
+    return '<button class="chip" data-f="'+f[0]+'" aria-pressed="'+(filter===f[0])+'">'+f[1]+' <b>'+n+'</b></button>';
+  }).join("");
+}
+function renderMeter(){
+  var total=state.posts.length||1;
+  var counts=PILLARS.map(function(p){
+    return {p:p, n:state.posts.filter(function(x){return x.pillar===p.name;}).length};
+  });
+  var none=state.posts.filter(function(x){return !x.pillar;}).length;
+  var parts=counts.filter(function(c){return c.n>0;}).map(function(c){
+    return '<i style="flex:'+c.n+';background:var('+c.p.v+')"></i>';
+  }).join("");
+  if(none) parts+='<i style="flex:'+none+';background:var(--p-none)"></i>';
+  document.getElementById("meter").innerHTML=parts||'<i style="flex:1;background:var(--surface-2)"></i>';
+  document.getElementById("pillarTotal").textContent=state.posts.length+" posts";
+  document.getElementById("legend").innerHTML=counts.map(function(c){
+    var pct=Math.round(c.n/total*100);
+    return '<div class="legend-row"><span class="sw" style="background:var('+c.p.v+')"></span>'+
+           '<span class="nm">'+esc(c.p.name)+'</span>'+
+           '<span class="vl">'+c.n+' · '+pct+'%</span></div>';
+  }).join("") + (none? '<div class="legend-row"><span class="sw" style="background:var(--p-none)"></span><span class="nm">No pillar</span><span class="vl">'+none+'</span></div>':"");
+}
+
+/* ---------------- render: profile ---------------- */
+function renderProfile(){
+  var pr=state.profile;
+  document.getElementById("pUser").textContent=pr.username||"";
+  document.getElementById("pName").textContent=pr.name||"";
+  document.getElementById("pBio").textContent=pr.bio||"";
+  var a=document.getElementById("pLink");
+  a.textContent=pr.link||"";
+  a.href=pr.link ? (/^https?:/.test(pr.link)?pr.link:"https://"+pr.link) : "#";
+  document.getElementById("cFollowers").textContent=pr.followers||"0";
+  document.getElementById("cFollowing").textContent=pr.following||"0";
+  document.getElementById("srcLine").textContent="Content · aqua+ content calendar" + (state.isSeed?" · examples":"");
+  var av=document.getElementById("avatar");
+  if(pr.avatar){
+    av.innerHTML='<img src="'+esc(pr.avatar)+'" alt="" onerror="this.remove()">';
+  }else{
+    av.innerHTML='<span>'+esc((pr.name||"a").trim().charAt(0).toLowerCase())+'</span>';
+  }
+}
+
+/* ---------------- render: detail ---------------- */
+function renderDetail(){
+  var empty=document.getElementById("detailEmpty");
+  var form=document.getElementById("detailForm");
+  var close=document.getElementById("closeDetail");
+  var p=selectedId?byId(selectedId):null;
+  if(!p){
+    empty.hidden=false; form.hidden=true; close.hidden=true;
+    document.getElementById("detailTitle").textContent="Post";
+    return;
+  }
+  empty.hidden=true; form.hidden=false; close.hidden=false;
+  document.getElementById("detailTitle").textContent=statusOf(p);
+
+  var stages=[["writing","Writing"],["filming","Filming"],["editing","Editing"],["posting","Posted"]];
+  var isUp=(p.image||"").slice(0,5)==="data:";
+  form.innerHTML=
+    '<div class="field"><label for="f-title">Title</label>'+
+      '<input id="f-title" type="text" value="'+esc(p.title)+'"></div>'+
+    '<div class="field"><label for="f-cap">Caption</label>'+
+      '<textarea id="f-cap">'+esc(p.caption)+'</textarea></div>'+
+    '<div class="field"><label for="f-img">Image</label>'+
+      '<input id="f-img" type="url" placeholder="'+(isUp?"Uploaded from your computer":"Paste a direct image link, ending .jpg or .png")+'" value="'+esc(isUp?"":p.image)+'">'+
+      '<div class="imgrow"><button class="btn btn-sm" id="f-upload" type="button">Upload image</button>'+
+      (p.image?'<button class="btn btn-sm btn-ghost" id="f-imgclear" type="button">Remove</button>':"")+
+      '<span class="note">'+(isUp?"Stored in this browser":"or upload a picture from your computer")+'</span></div>'+
+      '<input type="file" id="f-file" accept="image/*" hidden></div>'+
+    '<div class="row2">'+
+      '<div class="field"><label for="f-pillar">Content pillar</label><select id="f-pillar">'+
+        '<option value=""'+(!p.pillar?" selected":"")+'>—</option>'+
+        PILLARS.map(function(x){return '<option'+(p.pillar===x.name?" selected":"")+'>'+esc(x.name)+'</option>';}).join("")+
+      '</select></div>'+
+      '<div class="field"><label for="f-format">Format</label><select id="f-format">'+
+        FORMATS.map(function(f){return '<option'+(p.format===f?" selected":"")+'>'+esc(f)+'</option>';}).join("")+
+      '</select></div>'+
+    '</div>'+
+    '<div class="field"><label for="f-date">Post date</label>'+
+      '<input id="f-date" type="date" value="'+esc(p.date||"")+'"></div>'+
+    '<div class="field"><label>Stage</label><div class="stages">'+
+      stages.map(function(s){
+        return '<button class="stagebtn" data-s="'+s[0]+'" aria-pressed="'+(!!p[s[0]])+'">'+
+          '<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l6 6L20 5"/></svg>'+
+          s[1]+'</button>';
+      }).join("")+
+    '</div></div>'+
+    '<div class="detail-foot">'+
+      '<button class="btn btn-sm" id="f-pin">'+(p.pinned?"Unpin":"Pin to top")+'</button>'+
+      (p.notionUrl?'<a class="btn btn-sm" href="'+esc(p.notionUrl)+'" target="_blank" rel="noopener">Open in Notion</a>':"")+
+      '<button class="btn btn-sm danger" id="f-del">Delete</button>'+
+    '</div>';
+
+  function upd(k,v){ p[k]=v; save(); renderGrid(); renderMeter(); renderFilters(); }
+  form.querySelector("#f-title").addEventListener("input",function(){upd("title",this.value);});
+  form.querySelector("#f-cap").addEventListener("input",function(){p.caption=this.value;save();});
+  form.querySelector("#f-img").addEventListener("input",function(){upd("image",this.value.trim());});
+  form.querySelector("#f-upload").addEventListener("click",function(){ form.querySelector("#f-file").click(); });
+  var clr=form.querySelector("#f-imgclear");
+  if(clr) clr.addEventListener("click",function(){ p.image=""; save(); renderDetail(); renderGrid(); });
+  form.querySelector("#f-file").addEventListener("change",function(){
+    var f=this.files&&this.files[0]; if(!f) return;
+    if(f.type.indexOf("image/")!==0){ toast("That file isn't an image"); return; }
+    var fr=new FileReader();
+    fr.onload=function(){
+      var im=new Image();
+      im.onload=function(){
+        var S=800,c=document.createElement("canvas");c.width=S;c.height=S;
+        var ctx=c.getContext("2d");
+        var side=Math.min(im.width,im.height);
+        ctx.drawImage(im,(im.width-side)/2,(im.height-side)/2,side,side,0,0,S,S);
+        var prev=p.image;
+        p.image=c.toDataURL("image/jpeg",0.82);
+        if(save()){ renderDetail(); renderGrid(); toast("Image added"); }
+        else { p.image=prev; save(); toast("Browser storage is full — use an image link instead"); }
+      };
+      im.onerror=function(){ toast("Couldn't read that image"); };
+      im.src=fr.result;
+    };
+    fr.readAsDataURL(f);
+  });
+  form.querySelector("#f-pillar").addEventListener("change",function(){upd("pillar",this.value);});
+  form.querySelector("#f-format").addEventListener("change",function(){upd("format",this.value);});
+  form.querySelector("#f-date").addEventListener("change",function(){upd("date",this.value);});
+  form.querySelectorAll(".stagebtn").forEach(function(b){
+    b.addEventListener("click",function(){
+      var k=b.dataset.s; p[k]=!p[k];
+      if(p.posting){p.writing=p.filming=p.editing=true;}
+      save(); renderDetail(); renderGrid(); renderFilters();
+    });
+  });
+  form.querySelector("#f-pin").addEventListener("click",function(){
+    p.pinned=!p.pinned; save(); renderDetail(); renderGrid(); renderFilters();
+  });
+  form.querySelector("#f-del").addEventListener("click",function(){
+    state.posts=state.posts.filter(function(x){return x.id!==p.id;});
+    selectedId=null; save(); renderAll(); toast("Post deleted");
+  });
+}
+
+function renderAll(){ renderProfile(); renderFilters(); renderMeter(); renderGrid(); renderDetail(); }
+
+/* ---------------- drag to reorder ---------------- */
+var drag=null;
+gridEl.addEventListener("pointerdown",function(e){
+  var cell=e.target.closest(".cell"); if(!cell||cell.classList.contains("empty-slot")) return;
+  var id=cell.dataset.id; if(!id) return;
+  var r=cell.getBoundingClientRect();
+  drag={id:id, startX:e.clientX, startY:e.clientY, active:false, w:r.width, h:r.height, cell:cell};
+  gridEl.setPointerCapture(e.pointerId);
+});
+gridEl.addEventListener("pointermove",function(e){
+  if(!drag) return;
+  if(!drag.active){
+    if(Math.abs(e.clientX-drag.startX)<6 && Math.abs(e.clientY-drag.startY)<6) return;
+    drag.active=true;
+    drag.cell.classList.add("is-dragging");
+    var g=document.createElement("div");
+    g.className="drag-ghost";
+    g.style.width=drag.w+"px"; g.style.height=drag.h+"px";
+    g.innerHTML=drag.cell.innerHTML;
+    document.body.appendChild(g);
+    drag.ghost=g;
+  }
+  drag.ghost.style.left=(e.clientX-drag.w/2)+"px";
+  drag.ghost.style.top=(e.clientY-drag.h/2)+"px";
+
+  drag.ghost.style.visibility="hidden";
+  var under=document.elementFromPoint(e.clientX,e.clientY);
+  drag.ghost.style.visibility="";
+  var t=under&&under.closest?under.closest(".cell"):null;
+  if(!t||t.classList.contains("empty-slot")||!t.dataset.id||t.dataset.id===drag.id) return;
+
+  var from=state.posts.findIndex(function(p){return p.id===drag.id;});
+  var to=state.posts.findIndex(function(p){return p.id===t.dataset.id;});
+  if(from<0||to<0) return;
+  var moved=state.posts[from];
+  var target=state.posts[to];
+  // dragging across the pinned boundary adopts the target's pinned state
+  moved.pinned=target.pinned;
+  state.posts.splice(from,1);
+  state.posts.splice(to,0,moved);
+  renderGrid();
+  var again=gridEl.querySelector('.cell[data-id="'+CSS.escape(drag.id)+'"]');
+  if(again){ again.classList.add("is-dragging"); drag.cell=again; }
+});
+function endDrag(){
+  if(!drag) return;
+  if(drag.ghost) drag.ghost.remove();
+  if(drag.active){ save(); renderGrid(); renderFilters(); }
+  else { select(drag.id); }
+  drag=null;
+}
+gridEl.addEventListener("pointerup",endDrag);
+gridEl.addEventListener("pointercancel",endDrag);
+
+function select(id){
+  selectedId = (selectedId===id) ? null : id;
+  renderGrid(); renderDetail();
+}
+
+/* ---------------- controls ---------------- */
+document.getElementById("filters").addEventListener("click",function(e){
+  var b=e.target.closest(".chip"); if(!b) return;
+  filter=b.dataset.f; renderFilters(); renderGrid();
+});
+document.querySelectorAll(".tab").forEach(function(t){
+  t.addEventListener("click",function(){
+    view=t.dataset.view;
+    document.querySelectorAll(".tab").forEach(function(x){x.setAttribute("aria-selected", String(x===t));});
+    renderGrid();
+  });
+});
+document.getElementById("closeDetail").addEventListener("click",function(){ selectedId=null; renderGrid(); renderDetail(); });
+document.getElementById("addBtn").addEventListener("click",function(){
+  var p={id:"p"+Date.now(), title:"New post", caption:"", pillar:"", format:"Photo",
+         writing:false,filming:false,editing:false,posting:false,image:"",pinned:false,
+         date:new Date().toISOString().slice(0,10), notionUrl:""};
+  state.posts.push(p); selectedId=p.id; save(); renderAll();
+  document.getElementById("f-title").focus();
+});
+
+/* theme */
+document.getElementById("themeBtn").addEventListener("click",function(){
+  var cur=document.documentElement.getAttribute("data-theme");
+  var next = cur==="dark" ? "light" : cur==="light" ? "dark"
+    : (window.matchMedia("(prefers-color-scheme: dark)").matches?"light":"dark");
+  document.documentElement.setAttribute("data-theme",next);
+  try{ localStorage.setItem(KEY+".theme",next); }catch(e){}
+});
+
+/* seed banner */
+document.getElementById("dismissSeed").addEventListener("click",function(){
+  state.seedDismissed=true; save(); document.getElementById("seedBanner").hidden=true;
+});
+
+/* data panel */
+var dataCard=document.getElementById("dataCard");
+document.getElementById("dataBtn").addEventListener("click",function(){
+  dataCard.hidden=!dataCard.hidden;
+  if(!dataCard.hidden){
+    document.getElementById("jsonBox").value=JSON.stringify({profile:state.profile,posts:state.posts},null,1);
+    dataCard.scrollIntoView({behavior:"smooth",block:"nearest"});
+  }
+});
+document.getElementById("closeData").addEventListener("click",function(){dataCard.hidden=true;});
+document.getElementById("copyJson").addEventListener("click",function(){
+  var box=document.getElementById("jsonBox");
+  box.value=JSON.stringify({profile:state.profile,posts:state.posts},null,1);
+  box.select();
+  try{ navigator.clipboard.writeText(box.value); toast("Copied — paste it to Claude"); }
+  catch(e){ toast("Selected — press Ctrl/Cmd+C"); }
+});
+document.getElementById("loadJson").addEventListener("click",function(){
+  var raw=document.getElementById("jsonBox").value.trim();
+  if(!raw){ toast("Paste some JSON first"); return; }
+  try{
+    var o=JSON.parse(raw);
+    var posts = Array.isArray(o) ? o : o.posts;
+    if(!Array.isArray(posts)) throw new Error("no posts array");
+    state.posts=posts.map(function(p,i){
+      return {
+        id:p.id||("n"+i), title:p.title||"", caption:p.caption||"",
+        pillar:p.pillar||"", format:FORMATS.indexOf(p.format)>=0?p.format:"Photo",
+        writing:!!p.writing, filming:!!p.filming, editing:!!p.editing, posting:!!p.posting,
+        image:p.image||"", pinned:!!p.pinned, date:p.date||"", notionUrl:p.notionUrl||""
+      };
+    });
+    if(o.profile) state.profile=Object.assign({},DEFAULT_PROFILE,o.profile);
+    state.isSeed=false; selectedId=null; save(); renderAll();
+    document.getElementById("seedBanner").hidden=true;
+    toast("Loaded "+state.posts.length+" posts");
+  }catch(err){ toast("That JSON didn't parse — check for a missing bracket"); }
+});
+document.getElementById("resetAll").addEventListener("click",function(){
+  state.posts=seed(); state.profile=Object.assign({},DEFAULT_PROFILE);
+  state.isSeed=true; state.seedDismissed=false; selectedId=null;
+  save(); renderAll(); document.getElementById("seedBanner").hidden=false; toast("Reset to examples");
+});
+
+/* profile panel */
+var profileCard=document.getElementById("profileCard");
+var PF=[["pf-name","name"],["pf-user","username"],["pf-bio","bio"],["pf-link","link"],
+        ["pf-avatar","avatar"],["pf-followers","followers"],["pf-following","following"]];
+function openProfile(){
+  profileCard.hidden=false;
+  PF.forEach(function(f){ document.getElementById(f[0]).value=state.profile[f[1]]||""; });
+  profileCard.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+PF.forEach(function(f){
+  document.getElementById(f[0]).addEventListener("input",function(){
+    state.profile[f[1]]=this.value; save(); renderProfile();
+  });
+});
+document.getElementById("profileBtn").addEventListener("click",function(){
+  if(profileCard.hidden) openProfile(); else profileCard.hidden=true;
+});
+document.getElementById("closeProfile").addEventListener("click",function(){profileCard.hidden=true;});
+["pUser","avatar","pName","pBio","cFollowers","cFollowing"].forEach(function(id){
+  var el=document.getElementById(id);
+  el.classList.add("editable"); el.title="Edit profile";
+  el.addEventListener("click",openProfile);
+});
+document.getElementById("pLink").addEventListener("click",function(e){
+  if(!state.profile.link){ e.preventDefault(); openProfile(); }
+});
+
+/* toast */
+var toastEl=null,toastT=null;
+function toast(msg){
+  if(toastEl) toastEl.remove();
+  toastEl=document.createElement("div");
+  toastEl.className="toast"; toastEl.setAttribute("role","status");
+  toastEl.textContent=msg;
+  document.body.appendChild(toastEl);
+  clearTimeout(toastT);
+  toastT=setTimeout(function(){ if(toastEl){toastEl.remove();toastEl=null;} },2600);
+}
+
+/* ---------------- boot ---------------- */
+try{
+  var th=localStorage.getItem(KEY+".theme");
+  if(th) document.documentElement.setAttribute("data-theme",th);
+}catch(e){}
+load();
+if(state.seedDismissed || !state.isSeed) document.getElementById("seedBanner").hidden=true;
+// open on a real working state rather than an empty editor
+if(state.posts.length) selectedId=ordered(state.posts)[0].id;
+renderAll();
+
+})();
+</script>
+</body>
+</html>
