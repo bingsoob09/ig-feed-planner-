@@ -1,0 +1,32 @@
+name: Sync Notion to planner
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Read Notion
+        env:
+          NOTION_KEY: ${{ secrets.NOTION_KEY }}
+        run: node sync.mjs
+
+      - name: Save posts.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add posts.json
+          git diff --staged --quiet || git commit -m "Sync from Notion"
+          git push
