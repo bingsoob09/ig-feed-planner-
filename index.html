@@ -452,6 +452,15 @@ Kiosks nationwide</div>
           <p class="note" style="margin:0 0 10px">
             Ask Claude to <em>“sync my feed planner”</em> — it reads your <code>Content</code> database and hands back a JSON block. Paste it below and press Load. Press Copy to send your grid order, pins and captions back the other way.
           </p>
+          <div class="field"><label for="syncUrl">Where the synced posts live (leave as posts.json)</label>
+            <input id="syncUrl" type="url" placeholder="https://something.workers.dev">
+            <div class="imgrow">
+              <button class="btn btn-primary btn-sm" id="syncNow" type="button">Sync from Notion</button>
+              <span class="note" id="syncStatus"></span>
+            </div>
+          </div>
+          <hr style="border:0;border-top:1px solid var(--line);margin:14px 0">
+          <p class="note" style="margin:0 0 8px">Or paste posts by hand:</p>
           <textarea class="json" id="jsonBox" spellcheck="false" aria-label="Post data as JSON"></textarea>
           <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
             <button class="btn btn-primary btn-sm" id="loadJson">Load into grid</button>
@@ -929,6 +938,64 @@ document.getElementById("pLink").addEventListener("click",function(e){
   if(!state.profile.link){ e.preventDefault(); openProfile(); }
 });
 
+/* ---------------- live sync from Notion ---------------- */
+var SKEY=KEY+".worker";
+function workerUrl(){ try{ return localStorage.getItem(SKEY)||"posts.json"; }catch(e){ return "posts.json"; } }
+
+function mergeFromNotion(remote){
+  var seen={}, merged=[];
+  state.posts.forEach(function(lp){
+    for(var i=0;i<remote.length;i++){
+      if(remote[i].id===lp.id){
+        seen[lp.id]=1;
+        var keepImg=(lp.image||"").slice(0,5)==="data:";
+        merged.push(Object.assign({},remote[i],{
+          pinned: lp.pinned,
+          image: keepImg ? lp.image : remote[i].image
+        }));
+        return;
+      }
+    }
+  });
+  remote.forEach(function(r){ if(!seen[r.id]) merged.push(r); });
+  state.posts=merged;
+}
+
+function syncFromNotion(silent){
+  var u=workerUrl();
+  var st=document.getElementById("syncStatus");
+  if(!u){ if(!silent) toast("Add your Notion sync address first"); return; }
+  if(st) st.textContent="Syncing…";
+  fetch(u,{cache:"no-store"}).then(function(r){ return r.json(); }).then(function(d){
+    if(d && d.error){
+      if(st) st.textContent="Notion refused: "+String(d.detail||d.error).slice(0,120);
+      if(!silent) toast("Notion refused the request");
+      return;
+    }
+    if(!d || !Array.isArray(d.posts)) throw new Error("unexpected reply");
+    mergeFromNotion(d.posts);
+    state.isSeed=false;
+    if(selectedId && !byId(selectedId)) selectedId=null;
+    save(); renderAll();
+    var b=document.getElementById("seedBanner"); if(b) b.hidden=true;
+    var n=d.posts.length;
+    if(st) st.textContent="Synced "+n+" post"+(n===1?"":"s")+" just now";
+    if(!silent) toast("Synced "+n+" from Notion");
+  }).catch(function(){
+    if(st) st.textContent="Couldn't reach that address — check it and try again";
+    if(!silent) toast("Couldn't reach Notion");
+  });
+}
+
+document.getElementById("syncNow").addEventListener("click",function(){
+  var v=document.getElementById("syncUrl").value.trim();
+  try{ localStorage.setItem(SKEY,v); }catch(e){}
+  syncFromNotion(false);
+});
+document.getElementById("syncUrl").addEventListener("input",function(){
+  try{ localStorage.setItem(SKEY,this.value.trim()); }catch(e){}
+});
+
 /* toast */
 var toastEl=null,toastT=null;
 function toast(msg){
@@ -950,7 +1017,9 @@ load();
 if(state.seedDismissed || !state.isSeed) document.getElementById("seedBanner").hidden=true;
 // open on a real working state rather than an empty editor
 if(state.posts.length) selectedId=ordered(state.posts)[0].id;
+try{ document.getElementById("syncUrl").value=workerUrl(); }catch(e){}
 renderAll();
+if(workerUrl()) syncFromNotion(true);
 
 })();
 </script>
