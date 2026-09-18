@@ -1,7 +1,7 @@
 {
  "posts": [
   {
-   "id": "3dfaae78-20bf-8085-86b0-d1e4f6aba2d0",
+   "id": "3dfaae78-20bf-8047-8be9-d756c1e70223",
    "title": "sip & snap",
    "caption": "",
    "pillar": "Product Awareness",
@@ -10,12 +10,28 @@
    "filming": false,
    "editing": false,
    "posting": false,
-   "image": "https://prod-files-secure.s3.us-west-2.amazonaws.com/5780dc33-f5c1-401f-991f-41bbcba99e1e/6fb0dfec-5af0-467a-abd8-d7681fea1ec2/Tumbler.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466QA54ZORL%2F20260918%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260918T050505Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHUaCXVzLXdlc3QtMiJHMEUCICTOGQ3f9I99NCnihAlhw6LajdC7hNtDXm%2FtBK1sM79WAiEAk8D37PtiwQb6LfvuiDLfqtkVfaL612pBsSZ4wstJLDYq%2FwMIPRAAGgw2Mzc0MjMxODM4MDUiDDRaQf6rMy%2BHF%2BPA8ircA1OdB9jCwcxgX6jcwj4RhJZAo3KH0YIp2LuD8oQAm5%2FGj1fUm%2Bqf2L49WcI3%2BFe82%2FbsjOKb1qQMlH2ry6qrJG6ARu9Oe0eHRyqjqqx9XG98d4mBQVdjgyCKhPnzq%2BC%2B1GIVpda%2F0XHGExNEm%2Fxb0ocVnx0zfHLEIm2JUbgDmRqwJnM%2FZXIYv5dnPNVBG2yNmLlNojcrlZ5x%2Fq5HDredh7cIpoXCtsB0VUYZIgn5OSf%2Bd8%2FA5kmrQNxzHI%2BcpbNkuDcgxRHaxYCl76SgH55AD7FhyQtP1JBPhPstZ30IdQZa%2FKDHhFgjZAQX1TL1t2sitxqrQ3c0CbPZg9rWI%2F%2B9JsHm2a%2Fna8TwOY%2FKIezFqvWIT%2BJWLLh8adT9hcMNG4lDiJ94HZYlKE3e47URynSuoOXERRd83c6JmcvzAEKCqdIztL25oX83fiXfT6OW%2F%2FL7TDKgQ%2BsuL2S2NSlsTzDt5irnTrFjZ68OjRW98bW%2B%2BAkCHDuld2xLJ%2Fp9N206rUsv%2BO2v5S0xU5u8HQxdHKocVosEc%2BoVekXliajxhTqyh2TtzYoPokR6Tjqz466E%2BBF2A0Q2Xrs%2BOlzNCdiFgaDBZwG6Zsa%2Fuwi%2F2vQ9FIEOe0kzmxrs3mx9x6pbEQvvMNj5stUGOqUBDhLjKPn1p0iS1Xo%2F1ri%2BJV25XGMinPnBsGPmUpxEpcwKghj9dzTZQpMwg5faEtub7gwGHKSERwnthdBsOClQvkJ2KOjT1SblZShUKtf%2B7E6SmsxtGQ5qTODD1fo8opsNOVPtQ4JfJnGAvazUE2SlUgTP0MAHATSSXcJTMnnRJhgRzJsb2yOwYpg0XZTZ2thAiKao%2Bd7F3ezzMMsPOYZBDQ03u6O4&X-Amz-Signature=0f9165861c1a7d7665846a4ea507c21ebd8173f5e421ebf58a3d14ee6f020a6d&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+   "image": "https://prod-files-secure.s3.us-west-2.amazonaws.com/5780dc33-f5c1-401f-991f-41bbcba99e1e/d0aeaf89-f448-4a98-80a3-ccb5a7be472e/Tumbler.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB46623QAFAHR%2F20260918%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260918T053826Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHUaCXVzLXdlc3QtMiJHMEUCIQDHWsN0ifsLNP5NDSH3J5F7nCQ%2BTXg9VXKswkJRVF%2BlPwIgD1BvpMzvgZEr0viGUySFqy8iKh4UIM0TBbujEGuLxTYq%2FwMIPRAAGgw2Mzc0MjMxODM4MDUiDE%2F0g97JksBBfF%2Fc2yrcA3mlRvUJxSK7yndDxo63AgpWeaaFoVYFIvzR6%2Bt2hLUqGBPW2z4Qe2QnoTyw1j78Hpjbj91FYm%2F40jiIZ9FzepEJE5J8iIQHE9jiOUXHwBVqBJSwFViEuKNbByRezgZYQpJgoiuPGCsrcmY94fFQCO9yheh6tzmQqymMDBunmY8rUsf4YDo1XJiM5itWTWoBSLy8cvLAd0xqqKenEZsIIy6MZtk1DO035V5jXznyq6TeoT%2FF5dYQmz9hjP4awdxZi23Sci3F2GSD0UXtdaWpcqBnEYGwSt8eST8KZLWxVfgy2i9yUzuMxzQ2YkqHvOE2X74yUH3dL5Ha9%2F3cTzQHX1inzPH%2F5nbmvU7cnjLJFMJQk9BD4hkvQMOQmx%2FRiuewFvnIn2feg3d3QVloHmRyrcd1MDyN0%2FanV2NbuEXGFboAaOhvWWrePl9987eimb0X6gz%2Fn15uqbceB1z1hJdDfnjt7L27tS6BD1cQIYmHjctZ3ChbduoPcHiE5v%2FUeZSWaDSm6wQ4dLhSvjZY77Cak6mmxOyYMWOBKdNoI6zrqrUu0x%2FTuujATaH3fX4Mx90LmGbA7TGfpRQHzb4L5P4tmN0dCoZDhWQjT%2BNJMVpYITIVcAGk9wR8viv9psxoMOj5stUGOqUBol4mtkeYog2Ef2eTCDjiZFlUECBZSQEfc0oEbJt8ahOSUKwfiOymvGBxAAtkWsVLmYscRCpp8SvCVxY9Gnj2z%2BFr9ZcByZ8oU8TDuOYxb0ly%2BeF7xMG6vJtjOu3UVdRo34FGpH3JnSjmoUgZDjBbyFpj6ZqbBlxIju%2FKMnVmlc4plCu9OqxmRgTo2S5FGWoAU9QnpKbZTuuXps%2FInlbTZLYGedJ9&X-Amz-Signature=93884401617e020ec387e39119279d12bca8629608138b7649d10e0770c28921&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
    "pinned": false,
    "date": "2026-09-18",
    "order": null,
-   "notionUrl": "https://app.notion.com/p/sip-snap-3dfaae7820bf808586b0d1e4f6aba2d0"
+   "notionUrl": "https://app.notion.com/p/sip-snap-3dfaae7820bf80478be9d756c1e70223"
+  },
+  {
+   "id": "3dfaae78-20bf-805b-87d8-e7d2a2c67b8b",
+   "title": "ai fan",
+   "caption": "",
+   "pillar": "Product Awareness",
+   "format": "Photo",
+   "writing": false,
+   "filming": false,
+   "editing": false,
+   "posting": false,
+   "image": "https://prod-files-secure.s3.us-west-2.amazonaws.com/5780dc33-f5c1-401f-991f-41bbcba99e1e/d0f6d22a-62c8-4549-9d3b-8ecf8898aa8d/AI_Fan.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB46623QAFAHR%2F20260918%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260918T053826Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHUaCXVzLXdlc3QtMiJHMEUCIQDHWsN0ifsLNP5NDSH3J5F7nCQ%2BTXg9VXKswkJRVF%2BlPwIgD1BvpMzvgZEr0viGUySFqy8iKh4UIM0TBbujEGuLxTYq%2FwMIPRAAGgw2Mzc0MjMxODM4MDUiDE%2F0g97JksBBfF%2Fc2yrcA3mlRvUJxSK7yndDxo63AgpWeaaFoVYFIvzR6%2Bt2hLUqGBPW2z4Qe2QnoTyw1j78Hpjbj91FYm%2F40jiIZ9FzepEJE5J8iIQHE9jiOUXHwBVqBJSwFViEuKNbByRezgZYQpJgoiuPGCsrcmY94fFQCO9yheh6tzmQqymMDBunmY8rUsf4YDo1XJiM5itWTWoBSLy8cvLAd0xqqKenEZsIIy6MZtk1DO035V5jXznyq6TeoT%2FF5dYQmz9hjP4awdxZi23Sci3F2GSD0UXtdaWpcqBnEYGwSt8eST8KZLWxVfgy2i9yUzuMxzQ2YkqHvOE2X74yUH3dL5Ha9%2F3cTzQHX1inzPH%2F5nbmvU7cnjLJFMJQk9BD4hkvQMOQmx%2FRiuewFvnIn2feg3d3QVloHmRyrcd1MDyN0%2FanV2NbuEXGFboAaOhvWWrePl9987eimb0X6gz%2Fn15uqbceB1z1hJdDfnjt7L27tS6BD1cQIYmHjctZ3ChbduoPcHiE5v%2FUeZSWaDSm6wQ4dLhSvjZY77Cak6mmxOyYMWOBKdNoI6zrqrUu0x%2FTuujATaH3fX4Mx90LmGbA7TGfpRQHzb4L5P4tmN0dCoZDhWQjT%2BNJMVpYITIVcAGk9wR8viv9psxoMOj5stUGOqUBol4mtkeYog2Ef2eTCDjiZFlUECBZSQEfc0oEbJt8ahOSUKwfiOymvGBxAAtkWsVLmYscRCpp8SvCVxY9Gnj2z%2BFr9ZcByZ8oU8TDuOYxb0ly%2BeF7xMG6vJtjOu3UVdRo34FGpH3JnSjmoUgZDjBbyFpj6ZqbBlxIju%2FKMnVmlc4plCu9OqxmRgTo2S5FGWoAU9QnpKbZTuuXps%2FInlbTZLYGedJ9&X-Amz-Signature=c8d1e635f752904e1fe64b968daaa8edb6efd67bb91246d61920491f8e3608ff&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+   "pinned": false,
+   "date": "2026-09-21",
+   "order": null,
+   "notionUrl": "https://app.notion.com/p/ai-fan-3dfaae7820bf805b87d8e7d2a2c67b8b"
   }
  ],
- "syncedAt": "2026-09-18T05:05:06.059Z"
+ "syncedAt": "2026-09-18T05:38:26.779Z"
 }
