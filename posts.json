@@ -1,37 +1,4 @@
 {
- "posts": [
-  {
-   "id": "3dfaae78-20bf-8047-8be9-d756c1e70223",
-   "title": "sip & snap",
-   "caption": "",
-   "pillar": "Product Awareness",
-   "format": "Photo",
-   "writing": false,
-   "filming": false,
-   "editing": false,
-   "posting": false,
-   "image": "https://prod-files-secure.s3.us-west-2.amazonaws.com/5780dc33-f5c1-401f-991f-41bbcba99e1e/d0aeaf89-f448-4a98-80a3-ccb5a7be472e/Tumbler.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466ULV5R6TJ%2F20260919%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260919T064126Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEIr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIAuuPLS27DZ0%2BIaO%2B31Rkku%2FEkBO15wtPcVcPe0ggV%2BcAiEAwD1p%2BWvAaTZLKPCVryjUIOk07Pvtw63uelkYXx%2BWKD4q%2FwMIUxAAGgw2Mzc0MjMxODM4MDUiDNpEpKBdBxW6jWyARyrcAy5vfxoXApZDutTKWBZbvxSfW2lcvuu6u4IqPe0MN2R1DbWEuEiKJX%2FNQW4%2FJblWURgqpTOoDCPOvQ6n3G8qe8i%2FCMj9sbalWy9xfX%2Bp3TLtgT%2F77lyxylt0i40RL82traZ9KiuTFJqBAeM86fA5O8YJKkmozAQyo8EsAksB5euMHov6PpFqYrn8tktpRy04UXMrLxPNKmqxDkEIGEnFwJ%2B5hecFv24UotGwyfSJ2niGnz6gNYHrOsAILanw7DKll0rFHKaJXULHAT88xOPNSP%2BhsRzDECqOWj9DLKZrbryIxGhAAu371ZvfA0Fvs246b7qrk5rFYmolrTtxE4td9Z2cLg00LE6dmiBWSNjrDLZZmmocZVmfvRP4I7rmE8Aad3I3SxCLv2yajKjL2Bc1JZbgxbu4h2TbBzJQ9XG6YiPKGDLS3DfkUmV%2FsTNCRnnsDlJtNDxCZQi9z%2Buds6g%2F9fYw8WJeYSV3M3n6MOxVLliHGO5ZR%2Bulb%2FKW6FiH4YTNW7mM3r8%2FRT0qwVsGra6aR1yYX5DZQp0Eo5Rog4PMkXbZqLMecr4gZhqxk61xsNuinxrirPmz%2BAtwFvxOdSOaH6Wq8PKwec6je%2Bhlp2MsWsFr8P64PkzilQEa%2BOJzMObLt9UGOqUBWqdO58%2FJIi2pu1lVxQuUjuNMkKBW%2BXYYWWHU%2FYqPkJN%2FRo5qtyxPqLvSZcUPxC%2F9M124rgMC5XrOw%2FD1xnwWZzIuKZ%2BMHyK2DjojiGEL8y2tirFhGvdtNNqJzt0wTd53JCZfpbIh38DXazg105FWhf2xDLZsk5Pc62MX6JkHW2HsX0Q46Br4z%2BYYHdCiWmLQ05g1N3ER9jDSVwyXQzLjH%2FnrwSCB&X-Amz-Signature=c5c8f489cc9a93d1c541b3d1923f192dd69bfe5d2d3156d5195962bed2b151c5&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
-   "pinned": false,
-   "date": "2026-09-18",
-   "order": null,
-   "notionUrl": "https://app.notion.com/p/sip-snap-3dfaae7820bf80478be9d756c1e70223"
-  },
-  {
-   "id": "3dfaae78-20bf-805b-87d8-e7d2a2c67b8b",
-   "title": "ai fan",
-   "caption": "",
-   "pillar": "Product Awareness",
-   "format": "Photo",
-   "writing": false,
-   "filming": false,
-   "editing": false,
-   "posting": false,
-   "image": "https://prod-files-secure.s3.us-west-2.amazonaws.com/5780dc33-f5c1-401f-991f-41bbcba99e1e/d0f6d22a-62c8-4549-9d3b-8ecf8898aa8d/AI_Fan.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466ULV5R6TJ%2F20260919%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260919T064126Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEIr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIAuuPLS27DZ0%2BIaO%2B31Rkku%2FEkBO15wtPcVcPe0ggV%2BcAiEAwD1p%2BWvAaTZLKPCVryjUIOk07Pvtw63uelkYXx%2BWKD4q%2FwMIUxAAGgw2Mzc0MjMxODM4MDUiDNpEpKBdBxW6jWyARyrcAy5vfxoXApZDutTKWBZbvxSfW2lcvuu6u4IqPe0MN2R1DbWEuEiKJX%2FNQW4%2FJblWURgqpTOoDCPOvQ6n3G8qe8i%2FCMj9sbalWy9xfX%2Bp3TLtgT%2F77lyxylt0i40RL82traZ9KiuTFJqBAeM86fA5O8YJKkmozAQyo8EsAksB5euMHov6PpFqYrn8tktpRy04UXMrLxPNKmqxDkEIGEnFwJ%2B5hecFv24UotGwyfSJ2niGnz6gNYHrOsAILanw7DKll0rFHKaJXULHAT88xOPNSP%2BhsRzDECqOWj9DLKZrbryIxGhAAu371ZvfA0Fvs246b7qrk5rFYmolrTtxE4td9Z2cLg00LE6dmiBWSNjrDLZZmmocZVmfvRP4I7rmE8Aad3I3SxCLv2yajKjL2Bc1JZbgxbu4h2TbBzJQ9XG6YiPKGDLS3DfkUmV%2FsTNCRnnsDlJtNDxCZQi9z%2Buds6g%2F9fYw8WJeYSV3M3n6MOxVLliHGO5ZR%2Bulb%2FKW6FiH4YTNW7mM3r8%2FRT0qwVsGra6aR1yYX5DZQp0Eo5Rog4PMkXbZqLMecr4gZhqxk61xsNuinxrirPmz%2BAtwFvxOdSOaH6Wq8PKwec6je%2Bhlp2MsWsFr8P64PkzilQEa%2BOJzMObLt9UGOqUBWqdO58%2FJIi2pu1lVxQuUjuNMkKBW%2BXYYWWHU%2FYqPkJN%2FRo5qtyxPqLvSZcUPxC%2F9M124rgMC5XrOw%2FD1xnwWZzIuKZ%2BMHyK2DjojiGEL8y2tirFhGvdtNNqJzt0wTd53JCZfpbIh38DXazg105FWhf2xDLZsk5Pc62MX6JkHW2HsX0Q46Br4z%2BYYHdCiWmLQ05g1N3ER9jDSVwyXQzLjH%2FnrwSCB&X-Amz-Signature=028fe54052266efdb7981533bb123f75215ec5b61776ea8061ec55b9f775060a&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
-   "pinned": false,
-   "date": "2026-09-21",
-   "order": null,
-   "notionUrl": "https://app.notion.com/p/ai-fan-3dfaae7820bf805b87d8e7d2a2c67b8b"
-  }
- ],
- "syncedAt": "2026-09-19T06:41:26.287Z"
+ "posts": [],
+ "syncedAt": "2026-09-19T07:08:01.817Z"
 }
